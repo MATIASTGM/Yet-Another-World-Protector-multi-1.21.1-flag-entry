@@ -1,0 +1,47 @@
+plugins {
+    id 'multiloader-loader'
+    id 'fabric-loom'
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:21.1.1"
+    
+    // WorldEdit API for optional WorldEdit integration
+    //modCompileOnlyApi "com.sk89q.worldedit:worldedit-fabric-mc${project.minecraft_version}:7.3.10-SNAPSHOT"
+    //modImplementation "curse.maven:worldedit-225608:6013137"
+
+    // Snow Real Magic
+    // modImplementation "maven.modrinth:kiwi:LzP2xOQB" // Snow Real Magic dependency
+    modCompileOnly "maven.modrinth:snow-real-magic:Xm9IuQvC"
+}
+
+loom {
+    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
+    }
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
+    runs {
+        client {
+            client()
+            setConfigName('Fabric Client')
+            ideConfigGenerated(true)
+            runDir('runs/client')
+        }
+        server {
+            server()
+            setConfigName('Fabric Server')
+            ideConfigGenerated(true)
+            runDir('runs/server')
+        }
+    }
+}
