@@ -61,7 +61,7 @@ public abstract class EntityMoveMixin {
             String msg = entryFlag != null
                     ? entryFlag.getFlagMsg().msg()
                     : "You can't come in here!";
-            player.displayClientMessage(Component.literal(msg), false);
+            player.displayClientMessage(Component.literal(msg), true);
 
             // cancela e devolve o player um bloco pra trás
             ci.cancel();
