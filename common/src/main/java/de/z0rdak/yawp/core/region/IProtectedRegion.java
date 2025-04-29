@@ -98,4 +98,11 @@ public interface IProtectedRegion extends INbtSerializable<CompoundTag> {
     void resetGroups();
 
     boolean hasChild(IProtectedRegion child);
+
+
+    //new add-----------------------------------1.2
+    String getRequiredTag();
+
+    void setRequiredTag(String tag);
+    //new add-----------------------------------1.2
 }

@@ -102,7 +102,35 @@ final class FlagCommands {
                         .then(literal(CLEAR)
                                 .executes(ctx -> setRegionFlagMsg(ctx, regionSupplier.apply(ctx), getIFlagArgument(ctx), FlagMessage.CONFIG_MSG))
                         )
+                )// ───────────── BLOCO TAG ─────────────new 2.1
+                .then(Commands.literal("tag")
+                        .then(Commands.literal("set")
+                                .then(Commands.argument("minecraftTag", StringArgumentType.word())
+                                        .executes(ctx -> {
+                                            IProtectedRegion r = regionSupplier.apply(ctx);
+                                            String tag = StringArgumentType.getString(ctx, "minecraftTag");
+                                            r.setRequiredTag(tag);
+                                            RegionDataManager.save();
+                                            sendCmdFeedback(ctx.getSource(),
+                                                    Component.literal("§aTag exigida para entrar em '"
+                                                            + r.getName() + "': " + tag));
+                                            return 1;
+                                        })
+                                )
+                        )
+                        .then(Commands.literal("clear")
+                                .executes(ctx -> {
+                                    IProtectedRegion r = regionSupplier.apply(ctx);
+                                    r.setRequiredTag(null);
+                                    RegionDataManager.save();
+                                    sendCmdFeedback(ctx.getSource(),
+                                            Component.literal("§aExigência de tag removida de '"
+                                                    + r.getName() + "'"));
+                                    return 1;
+                                })
+                        )
                 );
+        // ───────────────────────────────────────
     }
 
     private static List<String> flagMsgExamples() {

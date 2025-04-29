@@ -75,6 +75,16 @@ public abstract class AbstractRegion implements IProtectedRegion {
         }
     }
 
+
+
+    //new 1.2---------------------------------------------
+    @Override
+    public String getRequiredTag() {return this.requiredTag;}
+    //normalize: null or empty = no requirement
+    @Override
+    public void setRequiredTag(String tag) {this.requiredTag = (tag == null || tag.isEmpty()) ? null : tag;}
+    //new 1.2---------------------------------------------
+
     @Override
     public String getParentName() {
         return parentName;

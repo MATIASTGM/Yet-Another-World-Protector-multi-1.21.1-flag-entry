@@ -23,8 +23,9 @@ public final class RegionNbtKeys {
     public static final String MEMBERS = "members";
     public static final String TEAMS = "teams";
 
-    //new
+    //new 1.2---------------------------------------------------------
     public static final String REQUIRED_TAG = "required_tag";
+    //new 1.2---------------------------------------------------------
     
     /* IMarkableArea NBT keys */
     public static final String AREA = "area";
